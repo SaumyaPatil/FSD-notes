@@ -2,19 +2,17 @@ package Algorithms.Sorting;
 
 import java.util.Scanner;
 
-public class SelectionSort {
+public class InsertionSort {
+    public static void insertionSort(int[] givenArray, int n){
 
-    public static void selectionSort(int[] givenArray, int n){
-
-        //It performs unstable sorting in - O(n^2)
-        for (int i=0; i<n-1; i++){
-            int min=i;
-            for (int j=i+1; j<n; j++){
-                if (givenArray[min]>givenArray[j]) min=j;
-            }
+        for (int i=1; i<n; i++){
             int temp = givenArray[i];
-            givenArray[i] = givenArray[min];
-            givenArray[min] = temp;
+            int j=i-1;
+            for (; j>=0; j--){
+                if (givenArray[j]>temp)givenArray[j+1] = givenArray[j];
+                else break;
+            }
+            givenArray[j+1] = temp;
         }
 
     }
@@ -30,7 +28,6 @@ public class SelectionSort {
     }
 
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
         System.out.print("Enter the size of array: ");
         int n = sc.nextInt();
@@ -40,9 +37,8 @@ public class SelectionSort {
             givenArray[i] = sc.nextInt();
         }
 
-        selectionSort(givenArray, n);
+        insertionSort(givenArray, n);
 
         printArray(givenArray, n);
-
     }
 }

@@ -1,60 +1,70 @@
 package Algorithms.Searching;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class SearchingAnElement {
-    public static void main(String[] args) {
 
-        //Linear search - [Time complexity : O(n)]
-        Scanner sc1 = new Scanner(System.in);
-        System.out.print("Enter the size of array: ");
-        int n1 = sc1.nextInt();
-        int[] givenArray1 = new int[n1];
-        System.out.print("Enter the array elements: ");
-        for (int i = 0; i <n1; i++){
-            givenArray1[i] = sc1.nextInt();
-        }
-        System.out.print("Enter target element: ");
-        int targetElement1 = sc1.nextInt();
-        boolean flag1 = false;
-        int i1 =0;
-        for (; i1 < n1; i1++){
-            if (givenArray1[i1] == targetElement1){
-                flag1 = true;
+    public static void linearSearch(int n, int[] givenArray, int targetElement){
+
+        //Time complexity : O(n)
+        boolean flag = false;
+        int i = 0;
+        for (; i < n; i++){
+            if (givenArray[i] == targetElement){
+                flag = true;
                 break;
             }
         }
-        if (flag1 == false) System.out.println("The given target element is not present in the given array.");
-        else System.out.println("The given target element is present in the given array at index " + i1);
+        if (flag == false) System.out.println("The given target element is not present in the given array.");
+        else System.out.println("The given target element is present in the given array at index " + i);
+
+    }
 
 
-        //Binary search - [Time complexity : O(log (n))]
+    public static void binarySearch(int[] givenArray, int targetElement){
+
+        Arrays.sort(givenArray);
+
         //The necessary condition here is that the array should be sorted.
-        Scanner sc2 = new Scanner(System.in);
-        System.out.print("Enter the size of array: ");
-        int n2 = sc2.nextInt();
-        int[] givenArray2 = new int[n2];
-        System.out.print("Enter the array elements in sorted manner: ");
-        for (int i = 0; i< n2; i++){
-            givenArray2[i] = sc2.nextInt();
-        }
-        System.out.print("Enter target element: ");
-        int targetElement2 = sc2.nextInt();
-        boolean flag2 = false;
         int low = 0;
-        int high = givenArray2.length-1;
+        int high = givenArray.length-1;
         int mid = low + (high-low)/2;
+        boolean flag = false;
+
+        //Time complexity : O(log (n))
         while (low<=high){
             mid = low + (high-low)/2;
-            if (givenArray2[mid] == targetElement2){
-                flag2 = true;
+            if (givenArray[mid] == targetElement){
+                flag = true;
                 break;
-            } else if (givenArray2[mid] < targetElement2) {
+            } else if (givenArray[mid] < targetElement) {
                 low = mid+1;
             }else high = mid-1;
         }
-        if (flag2 == false) System.out.println("The given target element is not present in the given array.");
+        if (flag == false) System.out.println("The given target element is not present in the given array.");
         else System.out.println("The given target element is present in the given array at index " + mid);
+
+    }
+
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter the size of array: ");
+        int n = sc.nextInt();
+        int[] givenArray = new int[n];
+        System.out.print("Enter the array elements: ");
+        for (int i = 0; i< n; i++){
+            givenArray[i] = sc.nextInt();
+        }
+        System.out.print("Enter target element: ");
+        int targetElement = sc.nextInt();
+
+        //Searching element using linear search
+        linearSearch(n, givenArray, targetElement);
+
+        //Searching element using binary search
+        binarySearch(givenArray, targetElement);
 
     }
 }
